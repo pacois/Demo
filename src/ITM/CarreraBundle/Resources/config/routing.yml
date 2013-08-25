@@ -1,0 +1,31 @@
+carrera:
+    pattern:  /carrera
+    defaults: { _controller: CarreraBundle:Carrera:index }
+
+_carrera:
+    pattern: /carrera/
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: carrera}
+
+carrera_new:
+    pattern:  /carrera/new
+    defaults: { _controller: CarreraBundle:Carrera:new }
+
+carrera_edit:
+    pattern:  /carrera/edit/{id}
+    defaults: { _controller: CarreraBundle:Carrera:edit }
+
+carrera_show:
+    pattern:  /carrera/show/{id}
+    defaults: { _controller: CarreraBundle:Carrera:show }
+
+carrera_create:
+    pattern:  /carrera/create
+    defaults: { _controller: CarreraBundle:Carrera:create }
+
+carrera_update:
+    pattern:  /carrera/update/{id}
+    defaults: { _controller: CarreraBundle:Carrera:update }
+
+carrera_delete:
+    pattern:  /carrera/delete/{id}
+    defaults: { _controller: CarreraBundle:Carrera:delete }

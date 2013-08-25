@@ -1,0 +1,31 @@
+alumno:
+    pattern:  /alumno
+    defaults: { _controller: AlumnoBundle:Alumno:index }
+
+_alumno:
+    pattern: /alumno/
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: alumno}
+
+alumno_new:
+    pattern:  /alumno/new
+    defaults: { _controller: AlumnoBundle:Alumno:new }
+
+alumno_edit:
+    pattern:  /alumno/edit/{id}
+    defaults: { _controller: AlumnoBundle:Alumno:edit }
+
+alumno_show:
+    pattern:  /alumno/show/{id}
+    defaults: { _controller: AlumnoBundle:Alumno:show }
+
+alumno_create:
+    pattern:  /alumno/create
+    defaults: { _controller: AlumnoBundle:Alumno:create }
+
+alumno_update:
+    pattern:  /alumno/update/{id}
+    defaults: { _controller: AlumnoBundle:Alumno:update }
+
+alumno_delete:
+    pattern:  /alumno/delete/{id}
+    defaults: { _controller: AlumnoBundle:Alumno:delete }

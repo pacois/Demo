@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+<link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
+<link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
+<link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+<h1>Carrera</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ entity.nombre }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('carrera_edit', { 'id': entity.id }) }}" class="button">
+            Editar
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('carrera_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Eliminar</button>
+        </form>
+    </li>
+</ul>
+{% endblock %}
+{% block javascripts %}{% endblock %}

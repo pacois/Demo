@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Ejemplo Escuela !!!{% endblock %}</title>
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
+            <link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
+            <link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('bundles/alumno/css/table.css') }}" rel="stylesheet" type="text/css" />
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="three columns sidebar">
+                <nav>
+                        <h3>MENU</h3>
+                        <ul>
+                            <li><a href="{{ path('alumno') }}">Alumnos</a></li>
+                            <li><a href="{{ path('carrera') }}">Carreras</a></li>
+                        </ul>
+                </nav>
+            </div>
+            <div class="twelve columns offset-by-one content">
+                {% block body %}{% endblock %}
+                {% block javascripts %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

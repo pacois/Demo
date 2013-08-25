@@ -1,0 +1,7 @@
+parameters:
+#    alumno.example.class: ITM\AlumnoBundle\Example
+
+services:
+#    alumno.example:
+#        class: %alumno.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
