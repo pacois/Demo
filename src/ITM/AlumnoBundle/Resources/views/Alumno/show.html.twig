@@ -3,26 +3,25 @@
 <link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 {% endblock %}
 {% block body %}
 <h1>Alumno</h1>
 
-<table class="record_properties">
-    <tbody>
+<table class="pure-table">
+     <thead>
         <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
+            <th>ID</th>
             <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+        </tr>
+     </thead>
+     <tbody>
+        <tr>
+            <td>{{ entity.id }}</td>
             <td>{{ entity.nombre }}</td>
-        </tr>
-        <tr>
-            <th>Apellido_paterno</th>
             <td>{{ entity.apellidopaterno }}</td>
-        </tr>
-        <tr>
-            <th>Apellido_materno</th>
             <td>{{ entity.apellidomaterno }}</td>
         </tr>
     </tbody>
@@ -30,14 +29,14 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('alumno_edit', { 'id': entity.id }) }}" class="button">
+        <a href="{{ path('alumno_edit', { 'id': entity.id }) }}" class="pure-button pure-button-primary">
             Editar
         </a>
     </li>
     <li>
         <form action="{{ path('alumno_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button type="submit">Eliminar</button>
+            <button type="submit" class="pure-button pure-button-error">Eliminar</button>
         </form>
     </li>
 </ul>

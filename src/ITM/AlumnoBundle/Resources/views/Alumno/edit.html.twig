@@ -3,6 +3,7 @@
 <link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 {% endblock %}
 {% block body %}
 <h1>Actualizar datos</h1>
@@ -10,7 +11,7 @@
 <form action="{{ path('alumno_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <p>
-        <button type="submit">Edit</button>
+        <button type="submit" class="pure-button pure-button-primary" >Edit</button>
     </p>
 </form>
 

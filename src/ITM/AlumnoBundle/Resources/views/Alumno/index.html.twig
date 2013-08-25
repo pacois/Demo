@@ -3,11 +3,12 @@
 <link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
 <link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 {% endblock %}
 {% block body %}
 <h1>Alumnos</h1>
 
-<table class="table">
+<table class="pure-table">
     <thead>
         <tr>
             <th>ID</th>
@@ -41,7 +42,7 @@
 
 <ul>
     <li>
-        <a href="{{ path('alumno_new') }}" class="button">
+        <a href="{{ path('alumno_new') }}" class="pure-button pure-button-primary">
             Alumno nuevo
         </a>
     </li>
