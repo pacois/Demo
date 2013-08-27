@@ -1,12 +1,6 @@
 {% extends '::base.html.twig' %}
-{% block stylesheets %}
-<link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
-<link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
-<link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
-{% endblock %}
 {% block body %}
-<h1>Nuevo</h1>
+<h1>Alumnos</h1>
 
 <form action="{{ path('alumno_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
@@ -15,4 +9,3 @@
     </p>
 </form>
 {% endblock %}
-{% block javascripts %}{% endblock %}
