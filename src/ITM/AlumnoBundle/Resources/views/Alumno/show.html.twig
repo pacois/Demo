@@ -1,6 +1,5 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-<h1>Alumnos</h1>
 <table class="pure-table">
      <thead>
         <tr>
@@ -27,9 +26,9 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('alumno_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('alumno_delete', { 'id': entity.id }) }}" method="post" >
             {{ form_widget(delete_form) }}
-            <button type="submit" class="pure-button pure-button-error">Eliminar</button>
+            <button type="submit" class="pure-button pure-button-primary">Eliminar</button>
         </form>
     </li>
 </ul>

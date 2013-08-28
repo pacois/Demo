@@ -1,7 +1,5 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-<h1>Alumnos</h1>
-
 <form action="{{ path('alumno_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>

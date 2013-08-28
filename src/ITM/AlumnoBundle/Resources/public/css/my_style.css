@@ -1,0 +1,15 @@
+header .sixteen.columns, .twelve.columns, .one-third.column, .two-thirds.column,.four.columns{
+	margin: 10px;
+}
+
+.sixteen.columns{
+	height: 250px;
+}
+
+.twelve.columns{
+	height: 350px;
+}
+
+.four.columns{
+	height: 200px;
+}

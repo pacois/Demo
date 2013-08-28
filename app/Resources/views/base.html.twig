@@ -1,31 +1,50 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html> <!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Ejemplo Escuela !!!{% endblock %}</title>
+        <!-- Mobile Specific Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         {% block stylesheets %}
             <link href="{{ asset('bundles/alumno/css/base.css') }}"  rel="stylesheet"  type='text/css' />
             <link href="{{ asset('bundles/alumno/css/skeleton.css') }}"    rel="stylesheet"  type='text/css' />
             <link href="{{ asset('bundles/alumno/css/layout.css') }}" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('bundles/alumno/css/table.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('bundles/alumno/css/my_style.css') }}" rel="stylesheet" type="text/css" />
+            <link href="{{ asset('bundles/alumno/css/menu_style.css') }}" rel="stylesheet" type="text/css"/>
+            <link href="{{ asset('bundles/alumno/css/iconic.css') }}" rel="stylesheet" type="text/css"/>
             <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
+            <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
         {% endblock %}
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         <div class="container">
-            <div class="three columns sidebar">
+            <div class="sixteen columns">
                 <nav>
-                        <h3>MENU</h3>
-                        <ul>
-                            <li><a href="{{ path('alumno') }}">Alumnos</a></li>
-                            <li><a href="{{ path('carrera') }}">Carreras</a></li>
-                        </ul>
+                    <ul class="menu">
+                        <li><a href="{{ path('alumno') }}">Alumnos</a></li>
+                        <li><a href="{{ path('carrera') }}">Carreras</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
                 </nav>
             </div>
-            <div class="twelve columns offset-by-one content">
+            <div class="clear"></div>
+            <div class="twelve columns">
                 {% block body %}{% endblock %}
-                {% block javascripts %}{% endblock %}
+                {% block javascripts %}
+                    <script src="{{ asset('bundles/alumno/js/prefix-free.js') }}" ></script>
+                {% endblock %}
+            </div>
+            <div class="four columns">
+                <aside>
+                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
+                </aside>
             </div>
         </div>
     </body>
