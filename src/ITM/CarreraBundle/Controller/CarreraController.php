@@ -27,7 +27,8 @@ class CarreraController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('CarreraBundle:Carrera')->findAll();
+        //$entities = $em->getRepository('CarreraBundle:Carrera')->findAll();
+        $entities = $em->getRepository('CarreraBundle:Carrera')->findCarreras();
 
         return array(
             'entities' => $entities,
