@@ -35,17 +35,21 @@
                 </nav>
             </div>
             <div class="clear"></div>
-            <div class="twelve columns">
-                {% block body %}{% endblock %}
-                {% block javascripts %}
-                    <script src="{{ asset('bundles/alumno/js/prefix-free.js') }}" ></script>
-                {% endblock %}
+            <div class="sixteen columns">
+                <div class="row">
+                  <div class="twelve columns alpha">
+                    {% block body %}{% endblock %}            
+                  </div>
+                  <div class="four columns omega">
+                    <aside>
+                        Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
+                    </aside>
+                  </div>
+                </div>
             </div>
-            <div class="four columns">
-                <aside>
-                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
-                </aside>
-            </div>
+            {% block javascripts %}
+                <script src="{{ asset('bundles/alumno/js/prefix-free.js') }}" ></script>
+            {% endblock %}
         </div>
     </body>
 </html>

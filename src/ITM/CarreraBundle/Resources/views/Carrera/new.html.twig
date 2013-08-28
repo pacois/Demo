@@ -2,8 +2,10 @@
 {% block body %}
 <form action="{{ path('carrera_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
-    <p>
-        <button type="submit">Grabar</button>
-    </p>
+    <ul>
+    	<li>
+        	<button type="submit" class="pure-button pure-button-primary">Grabar</button>
+        </li>
+    </ul>
 </form>
 {% endblock %}
