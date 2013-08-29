@@ -1,3 +1,7 @@
+portada:
+    pattern: /
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: alumno}
+
 alumno:
     pattern:  /alumno
     defaults: { _controller: AlumnoBundle:Alumno:index }
