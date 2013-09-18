@@ -1,10 +1,12 @@
 <?php
+
 namespace ITM\CarreraBundle\DataFixtures\ORM;
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use ITM\CarreraBundle\Entity\Carrera;
 
-class Carreras implements FixtureInterface
+class Carreras extends AbstractFixture implements OrderedFixtureInterface
 {
 
     public function load(ObjectManager $manager)
@@ -30,5 +32,10 @@ class Carreras implements FixtureInterface
         }
         
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 1; // the order in which fixtures will be loaded
     }
 }

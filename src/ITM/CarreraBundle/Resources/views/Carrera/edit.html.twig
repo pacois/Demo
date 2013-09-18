@@ -1,11 +1,16 @@
 {% extends '::base.html.twig' %}
-{% block body %}
-<form action="{{ path('carrera_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <ul>
-    	<li>
-        	<button type="submit" class="pure-button pure-button-primary">Edit</button>
-    	</li>
-    </ul>
-</form>
+
+{% block body -%}
+    <h1>Carrera edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('carrera') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
 {% endblock %}

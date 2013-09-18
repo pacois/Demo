@@ -29,3 +29,7 @@ carrera_update:
 carrera_delete:
     pattern:  /carrera/delete/{id}
     defaults: { _controller: CarreraBundle:Carrera:delete }
+
+carreras:
+    type: rest
+    resource: ITM\CarreraBundle\Controller\CarreraRESTController

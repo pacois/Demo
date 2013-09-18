@@ -1,11 +1,15 @@
 {% extends '::base.html.twig' %}
-{% block body %}
-<form action="{{ path('carrera_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <ul>
-    	<li>
-        	<button type="submit" class="pure-button pure-button-primary">Grabar</button>
-        </li>
-    </ul>
-</form>
+
+{% block body -%}
+    <h1>Carrera creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('carrera') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
 {% endblock %}

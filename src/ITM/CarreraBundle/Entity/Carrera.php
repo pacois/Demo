@@ -3,12 +3,12 @@
 namespace ITM\CarreraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Carrera
  *
  * @ORM\Table(name="carreras")
- * @ORM\Entity(repositoryClass="ITM\CarreraBundle\Entity\CarreraRepository")
+ * @ORM\Entity
+ *
  */
 class Carrera
 {
@@ -18,6 +18,7 @@ class Carrera
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
 
@@ -25,6 +26,7 @@ class Carrera
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=60)
+     *
      */
     private $nombre;
 
@@ -48,14 +50,14 @@ class Carrera
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
+    
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string
+     * @return string 
      */
     public function getNombre()
     {

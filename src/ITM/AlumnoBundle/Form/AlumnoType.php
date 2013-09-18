@@ -8,6 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AlumnoType extends AbstractType
 {
+        /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -17,7 +21,10 @@ class AlumnoType extends AbstractType
             ->add('carrera')
         ;
     }
-
+    
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -25,8 +32,11 @@ class AlumnoType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
-        return 'itm_alumnobundle_alumnotype';
+        return 'itm_alumnobundle_alumno';
     }
 }

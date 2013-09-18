@@ -17,10 +17,12 @@ use ITM\AlumnoBundle\Form\AlumnoType;
  */
 class AlumnoController extends Controller
 {
+
     /**
      * Lists all Alumno entities.
      *
      * @Route("/", name="alumno")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -33,11 +35,75 @@ class AlumnoController extends Controller
             'entities' => $entities,
         );
     }
+    /**
+     * Creates a new Alumno entity.
+     *
+     * @Route("/", name="alumno_create")
+     * @Method("POST")
+     * @Template("AlumnoBundle:Alumno:new.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $entity = new Alumno();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('alumno_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+    * Creates a form to create a Alumno entity.
+    *
+    * @param Alumno $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createCreateForm(Alumno $entity)
+    {
+        $form = $this->createForm(new AlumnoType(), $entity, array(
+            'action' => $this->generateUrl('alumno_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new Alumno entity.
+     *
+     * @Route("/new", name="alumno_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction()
+    {
+        $entity = new Alumno();
+        $form   = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
 
     /**
      * Finds and displays a Alumno entity.
      *
-     * @Route("/{id}/show", name="alumno_show")
+     * @Route("/{id}", name="alumno_show")
+     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -59,53 +125,10 @@ class AlumnoController extends Controller
     }
 
     /**
-     * Displays a form to create a new Alumno entity.
-     *
-     * @Route("/new", name="alumno_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Alumno();
-        $form   = $this->createForm(new AlumnoType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a new Alumno entity.
-     *
-     * @Route("/create", name="alumno_create")
-     * @Method("POST")
-     * @Template("AlumnoBundle:Alumno:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity  = new Alumno();
-        $form = $this->createForm(new AlumnoType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('alumno_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing Alumno entity.
      *
      * @Route("/{id}/edit", name="alumno_edit")
+     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -118,7 +141,7 @@ class AlumnoController extends Controller
             throw $this->createNotFoundException('Unable to find Alumno entity.');
         }
 
-        $editForm = $this->createForm(new AlumnoType(), $entity);
+        $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -129,10 +152,28 @@ class AlumnoController extends Controller
     }
 
     /**
+    * Creates a form to edit a Alumno entity.
+    *
+    * @param Alumno $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Alumno $entity)
+    {
+        $form = $this->createForm(new AlumnoType(), $entity, array(
+            'action' => $this->generateUrl('alumno_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
      * Edits an existing Alumno entity.
      *
-     * @Route("/{id}/update", name="alumno_update")
-     * @Method("POST")
+     * @Route("/{id}", name="alumno_update")
+     * @Method("PUT")
      * @Template("AlumnoBundle:Alumno:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -146,11 +187,10 @@ class AlumnoController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new AlumnoType(), $entity);
-        $editForm->bind($request);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('alumno_edit', array('id' => $id)));
@@ -162,17 +202,16 @@ class AlumnoController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
      * Deletes a Alumno entity.
      *
-     * @Route("/{id}/delete", name="alumno_delete")
-     * @Method("POST")
+     * @Route("/{id}", name="alumno_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -189,10 +228,19 @@ class AlumnoController extends Controller
         return $this->redirect($this->generateUrl('alumno'));
     }
 
+    /**
+     * Creates a form to delete a Alumno entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('alumno_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

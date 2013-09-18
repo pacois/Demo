@@ -17,28 +17,93 @@ use ITM\CarreraBundle\Form\CarreraType;
  */
 class CarreraController extends Controller
 {
+    
     /**
      * Lists all Carrera entities.
      *
      * @Route("/", name="carrera")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        //$entities = $em->getRepository('CarreraBundle:Carrera')->findAll();
-        $entities = $em->getRepository('CarreraBundle:Carrera')->findCarreras();
+        $entities = $em->getRepository('CarreraBundle:Carrera')->findAll();
 
         return array(
             'entities' => $entities,
+        );
+    }
+    /**
+     * Creates a new Carrera entity.
+     *
+     * @Route("/", name="carrera_create")
+     * @Method("POST")
+     * @Template("CarreraBundle:Carrera:new.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $entity = new Carrera();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('carrera_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+    * Creates a form to create a Carrera entity.
+    *
+    * @param Carrera $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createCreateForm(Carrera $entity)
+    {
+        $form = $this->createForm(new CarreraType(), $entity, array(
+            'action' => $this->generateUrl('carrera_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new Carrera entity.
+     *
+     * @Route("/new", name="carrera_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction()
+    {
+        $entity = new Carrera();
+        $form   = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
         );
     }
 
     /**
      * Finds and displays a Carrera entity.
      *
-     * @Route("/{id}/show", name="carrera_show")
+     * @Route("/{id}", name="carrera_show")
+     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -60,53 +125,10 @@ class CarreraController extends Controller
     }
 
     /**
-     * Displays a form to create a new Carrera entity.
-     *
-     * @Route("/new", name="carrera_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Carrera();
-        $form   = $this->createForm(new CarreraType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a new Carrera entity.
-     *
-     * @Route("/create", name="carrera_create")
-     * @Method("POST")
-     * @Template("CarreraBundle:Carrera:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity  = new Carrera();
-        $form = $this->createForm(new CarreraType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('carrera_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing Carrera entity.
      *
      * @Route("/{id}/edit", name="carrera_edit")
+     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -119,7 +141,7 @@ class CarreraController extends Controller
             throw $this->createNotFoundException('Unable to find Carrera entity.');
         }
 
-        $editForm = $this->createForm(new CarreraType(), $entity);
+        $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -130,10 +152,28 @@ class CarreraController extends Controller
     }
 
     /**
+    * Creates a form to edit a Carrera entity.
+    *
+    * @param Carrera $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Carrera $entity)
+    {
+        $form = $this->createForm(new CarreraType(), $entity, array(
+            'action' => $this->generateUrl('carrera_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
      * Edits an existing Carrera entity.
      *
-     * @Route("/{id}/update", name="carrera_update")
-     * @Method("POST")
+     * @Route("/{id}", name="carrera_update")
+     * @Method("PUT")
      * @Template("CarreraBundle:Carrera:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -147,11 +187,10 @@ class CarreraController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new CarreraType(), $entity);
-        $editForm->bind($request);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('carrera_edit', array('id' => $id)));
@@ -163,17 +202,16 @@ class CarreraController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
      * Deletes a Carrera entity.
      *
-     * @Route("/{id}/delete", name="carrera_delete")
-     * @Method("POST")
+     * @Route("/{id}", name="carrera_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -190,10 +228,19 @@ class CarreraController extends Controller
         return $this->redirect($this->generateUrl('carrera'));
     }
 
+    /**
+     * Creates a form to delete a Carrera entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('carrera_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

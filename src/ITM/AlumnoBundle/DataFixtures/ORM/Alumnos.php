@@ -1,19 +1,17 @@
 <?php
 
 namespace ITM\AlumnoBundle\DataFixtures\ORM;
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use ITM\AlumnoBundle\Entity\Alumno;
 
-class Alumnos implements FixtureInterface
+class Alumnos extends AbstractFixture implements OrderedFixtureInterface
 {
 
     public function load(ObjectManager $manager)
     {
-        
-        $carrera = new Carrera();
-        $carrera->getId(5);
-        $manager->persist($carrera);
+        $carrera = $manager->getRepository('CarreraBundle:Carrera')->find(5);
         
         $alumnos = array(
             array('nombre' => 'ROGELIO', 'app' => 'MALDONADO', 'apm' => 'CEJA'),
@@ -28,16 +26,21 @@ class Alumnos implements FixtureInterface
             array('nombre' => 'CONSUELO', 'app' => 'MORENO', 'apm' => 'SALINAS'),
             array('nombre' => 'EVA', 'app' => 'PEREZ', 'apm' => 'HERNANDEZ')  
         );
-        
+
         foreach ($alumnos as $alumno) {
             $entidad = new Alumno();
             $entidad->setNombre($alumno['nombre']);
             $entidad->setApellidoPaterno($alumno['app']);
             $entidad->setApellidoMaterno($alumno['apm']);
-            $entidad->setCarrera();
+            $entidad->setCarrera($carrera);
             $manager->persist($entidad);
         }
         
         $manager->flush();
+    }
+
+    public function getOrder()
+    {
+        return 2; // the order in which fixtures will be loaded
     }
 }

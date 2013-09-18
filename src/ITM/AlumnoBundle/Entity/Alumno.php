@@ -130,7 +130,7 @@ class Alumno
     /**
      * Set carrera
      *
-     * @param ITM\CarreraBundle\Entity\Carrera $carrera
+     * @param \ITM\CarreraBundle\Entity\Carrera $carrera
      */
     public function setCarrera(\ITM\CarreraBundle\Entity\Carrera $carrera)
     {
@@ -140,7 +140,7 @@ class Alumno
     /**
      * Get carrera
      *
-     * @return ITM\CarreraBundle\Entity\Carrera 
+     * @return \ITM\CarreraBundle\Entity\Carrera $carrera 
      */
     public function getCarrera()
     {
